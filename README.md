@@ -2,7 +2,7 @@
 
 A model-agnostic workflow skill for high-confidence long-form translation, independent review, evidence verification, controlled revision, and release QA.
 
-**Status: PUBLIC DRAFT CANDIDATE v0.1.** Architecture review is pending. This repository contains workflow instructions and reusable templates; it is not an approved release or an installed skill.
+**Status: v0.1.0.** Architecture review, isolated synthetic smoke testing, and packaging/frontmatter validation have passed. The release is workflow-only; no automation code is bundled.
 
 ## What it solves
 
@@ -89,7 +89,7 @@ This workflow governs translation-quality release artifacts. It does not grant c
 
 ## Current status and roadmap
 
-v0.1 is **workflow-only**. Automation is intentionally deferred. The next step is architecture review of the candidate through the Draft PR; there is no tagged release or installation in this bootstrap.
+v0.1.0 is **workflow-only**. Architecture review, isolated synthetic smoke testing, and official `quick_validate.py` packaging/frontmatter validation passed. Automation is intentionally deferred; no scripts, schemas, CI, or workflow engine are included in this release.
 
 Future work may consider artifact checks, traceability checks, occurrence-map assistance, diff guards, and document/visual evidence binding after separate review. No scripts, schemas, CI, or workflow engine are included. See [DESIGN_NOTES.md](docs/DESIGN_NOTES.md) for design choices and limitations.
 
