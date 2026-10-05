@@ -5,7 +5,7 @@ description: Use when translating or releasing a book, technical document, resea
 
 # Longform Translation Release
 
-PUBLIC DRAFT CANDIDATE v0.1。将长篇翻译交付为可审计、可裁决、可回归的工程结果。MUST表示必须；MUST NOT表示禁止；SHOULD表示有理由才可偏离。
+v0.1.0。将长篇翻译交付为可审计、可裁决、可回归的工程结果。MUST表示必须；MUST NOT表示禁止；SHOULD表示有理由才可偏离。
 
 ## 适用与边界
 
@@ -14,7 +14,7 @@ PUBLIC DRAFT CANDIDATE v0.1。将长篇翻译交付为可审计、可裁决、�
 - 恢复项目时 MUST验证已有证据并从最早未满足的checkpoint继续，不重复翻译已冻结内容。
 - 不自动执行Publication Enhancement、版式重设计、索引重建、新增注释、新事实核查专项或文学重写。G5后STOP。
 - 本流程中的Release仅表示翻译质量与制品发布门槛通过，不代表取得版权、翻译权、出版权或发行/分发权。如目标包含公开发布或分发，FINAL_AUTHORITY MUST确认所需权利或许可。
-- v0.1只有流程、政策与模板；不包含自动化代码、固定平台依赖或特定模型要求。格式提取、OCR、渲染与hash使用环境中适用的现有能力；不可用时如实报告限制。
+- v0.1.0只有流程、政策与模板；不包含自动化代码、固定平台依赖或特定模型要求。格式提取、OCR、渲染与hash使用环境中适用的现有能力；不可用时如实报告限制。
 
 ## Roles
 

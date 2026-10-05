@@ -1,6 +1,6 @@
 # Design Notes
 
-Status: PUBLIC DRAFT CANDIDATE v0.1. These notes describe the workflow design; they do not contain project execution records or replace the runtime policy.
+Status: v0.1.0. Architecture approved; isolated synthetic smoke testing and packaging/frontmatter validation passed. These notes describe the workflow design; they do not contain project execution records or replace the runtime policy.
 
 ## Design rationale
 
@@ -42,11 +42,11 @@ Parallel work is optional and requires clear ownership and a merge responsibilit
 
 ## Validation boundary and limitations
 
-The candidate has undergone static architecture and scenario review. This is not a claim that an automated toolchain, platform loader, or end-to-end translation deployment has been validated.
+v0.1.0 has undergone static architecture review, isolated synthetic smoke testing, and official `quick_validate.py` manifest/frontmatter validation. This is not a claim that an automated toolchain or end-to-end translation deployment has been validated.
 
 The policies rely on the executing agents to maintain honest evidence records. They cannot technically enforce isolated context or immutable storage. Missing extraction, rendering, or verification capabilities must be reported rather than replaced with an unsupported PASS.
 
-Template placeholders are intentional and must be replaced with measured evidence before use. Installation and loader-specific naming compatibility are outside this bootstrap. The skill identifier remains `longform-translation-release`.
+Template placeholders are intentional and must be replaced with measured evidence before use. Full installation/deployment is outside v0.1.0; loader-facing frontmatter/name validation passed official `quick_validate.py`. The canonical skill identifier is `longform-translation-release`.
 
 ## Future Work
 
