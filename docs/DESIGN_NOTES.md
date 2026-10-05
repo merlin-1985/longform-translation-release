@@ -46,7 +46,7 @@ The candidate has undergone static architecture and scenario review. This is not
 
 The policies rely on the executing agents to maintain honest evidence records. They cannot technically enforce isolated context or immutable storage. Missing extraction, rendering, or verification capabilities must be reported rather than replaced with an unsupported PASS.
 
-Template placeholders are intentional and must be replaced with measured evidence before use. Installation and loader-specific naming compatibility are outside this bootstrap. The skill identifier remains `longform_translation_release`.
+Template placeholders are intentional and must be replaced with measured evidence before use. Installation and loader-specific naming compatibility are outside this bootstrap. The skill identifier remains `longform-translation-release`.
 
 ## Future Work
 

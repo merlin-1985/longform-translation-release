@@ -75,7 +75,7 @@ Other stages use checkpoints. Gate criteria and mandatory STOP behavior are defi
 
 ## How to use the skill
 
-1. Load [SKILL.md](SKILL.md) as the execution contract. Its identifier is `longform_translation_release`; this repository's name is `longform-translation-release`.
+1. Load [SKILL.md](SKILL.md) as the execution contract. Its identifier is `longform-translation-release`; this repository's name is `longform-translation-release`.
 2. Confirm source, target language/locale, audience, scope, output formats, and existing authorization. Resume at the earliest unmet checkpoint.
 3. Read the linked policy or gate section when it applies. Copy the needed templates into the translation project's own workspace and fill them with actual evidence. Do not overwrite this repository's templates with project records.
 4. Before a gate, verify that its artifacts exist, can be read, and are bound to their current versions. A statement that a file was generated is insufficient.

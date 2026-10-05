@@ -1,5 +1,5 @@
 ---
-name: longform_translation_release
+name: longform-translation-release
 description: Use when translating or releasing a book, technical document, research report, or other long PDF, DOCX, or EPUB that requires independent review and an auditable translation release; also when resuming such a project at a recorded lifecycle stage.
 ---
 
