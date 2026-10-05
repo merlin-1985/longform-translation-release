@@ -1,14 +1,16 @@
 # Findings
 
+被引用artifact的身份填写规则（说明，不是本文件自身份字段）：持久路径/资源ID；版本/revision；精确字节可用时MUST记SHA-256，否则记provider身份、稳定revision及准确版本重开定位；导出文件另记格式、来源revision和SHA-256。
+
 ## Review identity
 
 - Role / review date / scope：[填写]
-- Source path or persistent ID / version / SHA-256：[填写]
-- Translation baseline path / version / SHA-256：[填写]
-- Bible version / SHA-256：[填写]
+- Source artifact identity：[填写]
+- Translation baseline artifact identity：[填写]
+- Bible artifact identity：[填写]
 - Isolation statement / supplied materials（independent review必填）：[填写]
-- Coverage and Summary artifact locations / hashes：[填写]
-- Freeze date / artifact digest register：[填写]
+- Coverage and Summary artifact identities：[填写]
+- Freeze date / artifact identity register：[填写]
 
 只允许Severity＝BLOCKING / MAJOR / MINOR / STYLE；Type＝TRANSLATION / SOURCE / PROCESS / EDITORIAL_NOTE。
 

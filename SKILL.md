@@ -13,6 +13,7 @@ PUBLIC DRAFT CANDIDATE v0.1。将长篇翻译交付为可审计、可裁决、�
 - MUST先确认源件、目标语言/locale、读者、输出格式、完整范围及现有授权；已有明确答案不得重复询问。
 - 恢复项目时 MUST验证已有证据并从最早未满足的checkpoint继续，不重复翻译已冻结内容。
 - 不自动执行Publication Enhancement、版式重设计、索引重建、新增注释、新事实核查专项或文学重写。G5后STOP。
+- 本流程中的Release仅表示翻译质量与制品发布门槛通过，不代表取得版权、翻译权、出版权或发行/分发权。如目标包含公开发布或分发，FINAL_AUTHORITY MUST确认所需权利或许可。
 - v0.1只有流程、政策与模板；不包含自动化代码、固定平台依赖或特定模型要求。格式提取、OCR、渲染与hash使用环境中适用的现有能力；不可用时如实报告限制。
 
 ## Roles
@@ -28,9 +29,17 @@ PUBLIC DRAFT CANDIDATE v0.1。将长篇翻译交付为可审计、可裁决、�
 
 同一Agent可承担多个角色，但独立审校 MUST与内部QA信息隔离；需新上下文或可证明的隔离，不能靠“忽略先前结论”模拟。执行回归 SHOULD与实施修订分开复核；不增加强制角色。并行只用于独立单元，MUST指定所有权、输入版本与合并责任，不并发改共享Bible/SSOT。
 
-## Evidence hierarchy / 七条硬规则
+## Question-Specific Evidence Authority / 七条硬规则
 
-**Original Source > Frozen Translation Baseline > Translation Bible > Reviewer Evidence > Agent Judgment**。此顺序决定证据冲突时的优先级；基线记录“审查了什么”，不意味着基线不可能有错。
+不同artifact回答不同问题，不作线性排序：
+
+| 问题 | Authoritative artifact |
+|---|---|
+| 原文实际说了什么、含义是什么？ | Original Source：源文措辞与含义的权威 |
+| 被审查的译文实际包含什么？ | Frozen Translation Baseline：已审译文内容的权威，不保证译文正确 |
+| 已批准的翻译政策是什么？ | Translation Bible：批准译法政策的权威 |
+| reviewer提出了什么问题？ | Reviewer Evidence：记录其主张，结论仍须核验 |
+| 证据不足时Agent可推断什么？ | Agent Judgment不得覆盖对应问题的权威artifact；缺口须明示 |
 
 1. **Source is Authority。** MUST直接核对真实源件；提取文本/OCR是派生材料，不能推翻源件。
 2. **Review Finding ≠ Truth。** 进入修订清单前 MUST重新验证source quote、translation quote、location、context、root cause、scope；允许INVALIDATED，投票与信心不能替代证据。
@@ -38,7 +47,17 @@ PUBLIC DRAFT CANDIDATE v0.1。将长篇翻译交付为可审计、可裁决、�
 4. **Frozen evidence不可静默改写。** 独立review的Coverage、Findings、Summary完成时冻结；后续Cross-check完成时同样冻结。reviewer error用ERRATA或等价追加纠正材料记录，历史原件保留。
 5. **Adjudication与Revision分离。** 裁决正文候选只产生ACCEPT / MODIFY / REJECT / INVALIDATED；PRE_FIXED、EDITORIAL_ONLY是非修订处置。只有G3 PASS且已有FINAL_AUTHORITY相应授权才可实施；G3本身不授予权限，不重复索取已覆盖范围的授权。
 6. **不得默认blind global replace。** 人名、专名、术语、缩写、多义词或entity-name collision MUST评估Occurrence Map需求；指称不明则STOP相关变更，不能批量猜替。
-7. **Release必须可证明。** MUST具备Final SSOT、实际deliverable、Revision log、Post-revision QA、Manifest及version/hash binding，且unexpected substantive diff＝0；“已检查”不是证据。
+7. **Release必须可证明。** MUST具备Final SSOT、实际deliverable、Revision log、Post-revision QA、Manifest及可复现的制品身份绑定，且unexpected substantive diff＝0；“已检查”不是证据。
+
+## Reproducible Artifact Identity
+
+Every gated artifact MUST have a reproducible identity bound to the exact reviewed version。
+
+- 可直接取得精确字节的artifact：MUST记录持久路径/资源ID、适用的版本及精确字节的SHA-256。
+- 无可直接寻址源字节的provider-native artifact：MUST记录provider身份、持久资源ID、稳定revision/version ID，使同一已审版本可重新打开。仅当前文档链接或修改时间不够。
+- 后续导出为字节：MUST另记导出格式、来源provider revision及导出字节的SHA-256；导出身份不能冒充原生源字节摘要。
+
+无法重开准确已审版本则STOP相关Gate。SHA-256在精确字节可用时仍为MUST；云端原生版本身份不免除实际DOCX/PDF/EPUB文件的摘要要求。
 
 ## Lifecycle / Stage execution contract
 
@@ -46,7 +65,7 @@ PUBLIC DRAFT CANDIDATE v0.1。将长篇翻译交付为可审计、可裁决、�
 
 | Stage | INPUT | EXECUTION | OUTPUT / EVIDENCE | GATE | STOP CONDITION |
 |---|---|---|---|---|---|
-| Source Freeze | 原件、范围和格式要求 | 确认权威版本；读取能力/抽取异常检查；建立单元与定位方案；保存原字节 | 源件登记：路径、大小、版本、SHA-256、单元清单及范围例外 | checkpoint | 源件不可读、版本未定、不可恢复缺页/提取内容 |
+| Source Freeze | 原件、范围和格式要求 | 确认权威版本；读取能力/抽取异常检查；建立单元与定位方案；保留准确源版本 | 源件可复现身份、适用的大小/时间、单元清单及范围例外 | checkpoint | 源件不可读、版本未定、不可恢复缺页/提取内容 |
 | Translation Bible | 已冻结源件、读者/locale | 约定声音、术语及结构处理，明确例外；不猜专名事实 | Bible初版及负责合并者 | checkpoint | 影响全局含义的规则冲突未解决 |
 | Primary Translation | 源件、Bible、分配单元 | 逐单元忠实翻译；保留数字、引语、对象关系和结构；按书序合并 | 单元稿、覆盖记录、术语提案 | checkpoint | 源内容不可辨认、单元缺失；禁止补造 |
 | Internal QA | 全部单元稿与原件 | 源译核对、全局一致性和结构检查；记录修复；冻结审校基线与Bible版本 | 内部QA、PRE_FIXED证据、冻结baseline、版本登记 | **G1** | 完整性或基线绑定失败 |
@@ -71,7 +90,7 @@ PUBLIC DRAFT CANDIDATE v0.1。将长篇翻译交付为可审计、可裁决、�
 | G5 | FINAL RELEASE QA PASS |
 
 - FAIL则停止依赖它的下游动作；可继续无依赖的已授权工作。明确blocker、影响及所需证据，不以“完成大部分”放行。
-- Artifact Materialization Rule：每个Gate前 MUST确认文件实际存在、明确路径/ID、可读取、当前版本明确、digest/version可绑定；对话中的文件名或“已上传”声明不算落盘。
+- Artifact Materialization Rule：每个Gate前 MUST确认artifact实际存在、明确路径/持久ID、可读取、准确已审版本有可复现身份；对话中的文件名或“已上传”声明不算落盘。
 - Manifest drift MUST按[REVIEW_POLICY.md](references/REVIEW_POLICY.md)保留旧metadata、确认新权威版本并重新绑定；禁止猜旧版本、静默换hash或为hash回滚有效证据。
 - G3/G4后证据或内容变化 MUST重新验证受影响Gate及下游绑定；保留旧结果，不伪称旧PASS适用于新版本。
 - Closeout若发现BLOCKING artifact failure，仅在授权范围内修复制品并重验受影响证据；若需要正文变更，STOP并退回裁决/授权，不能借发布收口扩写。

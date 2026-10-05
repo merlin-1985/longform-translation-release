@@ -6,7 +6,7 @@ Status: PUBLIC DRAFT CANDIDATE v0.1. These notes describe the workflow design; t
 
 The workflow separates translation, independent review, source-grounded adjudication, controlled revision, and release QA. This makes a proposed change traceable from its finding to its source evidence, decision, actual edit, regression result, and final deliverable.
 
-The core invariants carry most of the control: source authority, finding verification, SOURCE/TRANSLATION separation, preserved evidence, separated adjudication and revision, occurrence-aware replacement, and provable release artifacts.
+The core invariants carry most of the control: question-specific evidence authority, finding verification, SOURCE/TRANSLATION separation, preserved evidence, separated adjudication and revision, occurrence-aware replacement, and provable release artifacts. Source wording and meaning, reviewed translation content, and approved translation policy each have their own authoritative artifact rather than a total ordering.
 
 ## Model-agnostic roles
 
@@ -18,10 +18,10 @@ The FINAL_AUTHORITY is the external source of scope and authorization; an execut
 
 - A confident review can contain a source-quote mismatch. Verify the actual source and baseline; preserve the original record and add ERRATA when needed.
 - A shared target-language name can refer to different source entities. Resolve each affected occurrence, including exclusions and substring collisions, before executing replacements.
-- An artifact mentioned in a conversation may never have been materialized. Check actual paths, readability, versions, and completed remote writes before a gate.
+- An artifact mentioned in a conversation may never have been materialized. Check actual paths or persistent IDs, readability, reproducible exact-version identities, and completed remote writes before a gate.
 - A digest may describe a temporary snapshot rather than the authoritative artifact. Determine version authority, preserve superseded metadata, and rebind the actual bytes instead of guessing or reverting content to fit a hash.
-- Updating QA fields can change a log's digest without changing its edit instructions. Preserve the execution-time version and explain its relationship to the final record.
-- A file hash identifies a version; it does not by itself prove that a formatted deliverable contains the final SSOT. Keep content-transfer and structural evidence alongside hashes.
+- Updating QA fields can change a log's byte digest or provider revision without changing its edit instructions. Preserve the execution-time version and explain its relationship to the final record.
+- A file hash or stable provider revision identifies an artifact version; it does not by itself prove that a formatted deliverable contains the final SSOT. Keep content-transfer and structural evidence alongside reproducible identities. Exact bytes require SHA-256; native cloud documents require provider/resource/revision identity that reopens the reviewed version, and exports record their format, originating revision, and exact-byte digest.
 - QA applies to the artifact actually checked. Regeneration requires rebinding and rechecking affected evidence. A byte-identical rename can preserve the same content QA when the path relationship is recorded.
 
 ## Portability decisions

@@ -1,10 +1,10 @@
 # Release Gates
 
-只有G1–G5是Major Gates。checkpoint使用工作记录，不创设新Gate。每次判定MUST记录日期、责任角色、输入/输出版本、PASS/FAIL、证据位置及blocker。所有必需artifact适用SKILL.md的Materialization Rule。
+只有G1–G5是Major Gates。checkpoint使用工作记录，不创设新Gate。每次判定MUST记录日期、责任角色、输入/输出版本、PASS/FAIL、证据位置及blocker。所有必需artifact适用SKILL.md的Materialization Rule和Reproducible Artifact Identity：精确字节可用时MUST记SHA-256，否则MUST绑定可重开的稳定provider revision；导出文件另记来源revision、格式及SHA-256。
 
 ## G1 — TRANSLATION BASELINE FROZEN
 
-- **Required evidence：** 权威源件版本/hash；单元与范围清单；Bible版本；完整译稿；内部QA和已修复项记录；冻结baseline实际文件与hash。
+- **Required evidence：** 权威源件可复现身份；单元与范围清单；Bible版本身份；完整译稿；内部QA和已修复项记录；冻结baseline实际artifact及可复现身份。
 - **PASS conditions：** 范围内单元全部交付且书序正确；数字、引语、结构及提取异常已检查；索引/图片等范围例外明确；内部QA无阻断冻结的未决缺陷；合并baseline与单元稿对应，源件和baseline均保留。
 - **FAIL conditions：** 缺单元/可译内容、无法辨认的源内容被猜补、Bible冲突影响理解、合并稿版本不明或只有生成声明。
 - **Allowed next action：** 准备隔离review包，开始独立审校；不能把内部QA PASS当作最终release。
@@ -12,7 +12,7 @@
 
 ## G2 — INDEPENDENT REVIEW COMPLETE
 
-- **Required evidence：** G1输入摘要；隔离声明；实际Coverage、Findings、Summary及各自当前摘要；任何缺口/排除项说明。
+- **Required evidence：** G1输入的准确已审版本身份；隔离声明；实际Coverage、Findings、Summary及各自可复现身份；任何缺口/排除项说明。
 - **PASS conditions：** INDEPENDENT_REVIEWER未读取内部QA结论；覆盖全部约定范围；输出可读且已落盘冻结；发现数量和覆盖记录自洽。Finding可以尚未裁决，G2不是确认其正确。
 - **FAIL conditions：** 审查被内部结论污染、只审部分却称全覆盖、没有明确baseline、文件未落盘/无法读取。
 - **Allowed next action：** 开放内部QA，Cross-check并冻结结果；开展Evidence Integrity Audit及Adjudication。
@@ -46,10 +46,10 @@
 
 - **Required evidence：** G4最终状态；Final SSOT；Final deliverable(s)；Bible；Revision log；Post-revision QA；完整Final Release Manifest；冻结输入校验。
 - **PASS conditions：**
-  - SSOT及每个实际制品有明确绝对路径/持久ID、文件名、字节数、SHA-256、修改时间、版本；单元数及字符统计口径明确；页数适用则登记，不适用须说明。
-  - MD/其它SSOT、制品、Bible与QA处于同一revision state。hash只证明文件身份，必须另有单元/段落/结构或等价内容传递证据证明跨格式对应。
+  - SSOT及每个实际制品有明确路径/持久ID及可复现的准确版本身份。Byte-addressable制品MUST记文件名、字节数、SHA-256及适用的修改时间/版本；provider-native且无可寻址源字节时MUST记provider身份、资源ID、稳定revision及重开定位，不虚构字节数或摘要。导出文件MUST记导出格式、来源revision、字节数和SHA-256。单元数及字符统计口径明确；页数适用则登记，不适用须说明。
+  - MD/其它SSOT、制品、Bible与QA处于同一revision state。Digest或provider revision只确定artifact身份，必须另有单元/段落/结构或等价内容传递证据证明跨格式对应。
   - 获准清单闭合、unexpected substantive diff＝0；已失效reviewer建议、entity和PRE_FIXED保护仍PASS；全部必需文档/视觉QA证据齐全。
-  - frozen evidence和原件摘要不变；editorial notes如实保留；Manifest本身已落盘可读，无未填字段被当成PASS。
+  - frozen evidence和原件的准确版本身份不变（字节版本SHA-256不变，原生版本revision仍可重开）；editorial notes如实保留；Manifest本身已落盘可读并绑定身份，无未填字段被当成PASS。
 - **FAIL conditions：** 找不到实际最终制品、记录绑定旧版、仅文件名显示Final却无证据、制品在QA后变更未重验、正文或冻结审校材料被覆盖、任何发布阻塞未解决。
-- **Allowed next action：** 仅交付Final SSOT、final deliverables及Manifest路径与状态。文件名无须包含Final；若仅复制/改名，验证字节相等并登记旧/新路径与同一hash，不重新生成正文。
+- **Allowed next action：** 仅交付Final SSOT、final deliverables及Manifest路径/资源ID与状态。文件名无须包含Final；字节制品仅复制/改名时，验证字节相等并登记旧/新路径与同一SHA-256，不重新生成正文。原生制品改名仍须验证准确provider revision身份，不凭新名称继承QA。
 - **Mandatory STOP behavior：** FAIL输出`FINAL RELEASE QA FAIL`和具体blocker；PASS输出`FINAL RELEASE QA PASS`后STOP。不自动继续Publication Enhancement、索引重建或新注释。

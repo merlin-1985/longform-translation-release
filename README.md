@@ -43,13 +43,15 @@ Other stages use checkpoints. Gate criteria and mandatory STOP behavior are defi
 
 ## Core safety and evidence principles
 
-- Original Source > Frozen Translation Baseline > Translation Bible > Reviewer Evidence > Agent Judgment.
+- **Question-Specific Evidence Authority:** Original Source is authoritative for source wording and meaning; Frozen Translation Baseline for what the reviewed translation contained; Translation Bible for approved translation policy; Reviewer Evidence for what a reviewer claimed, subject to verification. Agent Judgment must not override the authoritative artifact for that question.
 - A reviewer finding is a claim to verify. Recheck source quote, translation quote, location, context, root cause, and scope before revision.
 - Separate SOURCE concerns from TRANSLATION defects. Do not silently correct the author's facts or add annotations.
 - Preserve frozen evidence. Record reviewer errors through ERRATA and preserve superseded digest metadata when correcting a manifest.
 - Adjudication does not edit the translation. Only authorized ACCEPT/MODIFY changes may be applied; a gate does not grant authorization.
 - Resolve ambiguous names and terms by occurrence and source entity. Do not default to blind global replacement.
-- Require actual artifacts, cross-format content evidence, version/hash binding, and unexpected substantive diff = 0 before release.
+- Require actual artifacts, cross-format content evidence, reproducible artifact identity, and unexpected substantive diff = 0 before release.
+
+**Reproducible Artifact Identity:** Every gated artifact MUST be bound to the exact reviewed version. For byte-addressable artifacts, record a persistent path/resource ID, version where applicable, and SHA-256 of the exact bytes. For provider-native artifacts without directly addressable source bytes, record the provider identity, persistent resource ID, and stable revision/version ID sufficient to reopen that exact revision. If exported later, also record export format, originating provider revision, and SHA-256 of the exported bytes. A mutable current-document link alone is insufficient.
 
 ## Repository structure
 
@@ -82,6 +84,8 @@ Other stages use checkpoints. Gate criteria and mandatory STOP behavior are defi
 The execution policy and templates are primarily in Simplified Chinese, with stable English role and status identifiers. The workflow is not limited to a particular target language. Format extraction, OCR, rendering, and comparison use the execution environment's existing capabilities; no implementation is bundled here.
 
 Publication enhancement, typesetting redesign, index rebuild, new annotation campaigns, new fact-check campaigns, and literary rewriting require a separate workflow and authorization.
+
+This workflow governs translation-quality release artifacts. It does not grant copyright, translation, publication, or distribution rights. If public distribution is intended, FINAL_AUTHORITY must confirm any required rights or permissions.
 
 ## Current status and roadmap
 

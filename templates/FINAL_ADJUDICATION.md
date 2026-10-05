@@ -1,9 +1,11 @@
 # Final Adjudication
 
+被引用artifact的身份填写规则（说明，不是本文件自身份字段）：持久路径/资源ID；版本/revision；精确字节可用时MUST记SHA-256，否则记provider身份、稳定revision及准确版本重开定位；导出文件另记格式、来源revision和SHA-256。
+
 ## Identity / evidence chain
 
-- Source / frozen baseline / Bible paths, versions and SHA-256：[填写]
-- Frozen Coverage / Findings / Summary / Cross-check locations and digests：[填写]
+- Source / frozen baseline / Bible artifact identities：[填写]
+- Frozen Coverage / Findings / Summary / Cross-check artifact identities：[填写]
 - Evidence Manifest / corrections / ERRATA references：[填写；无则说明]
 - Decision date / ADJUDICATION_AGENT：[填写]
 - FINAL_AUTHORITY authorization and scope：[填写；不得由G3自授权]

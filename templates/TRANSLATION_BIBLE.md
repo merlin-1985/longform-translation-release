@@ -2,13 +2,15 @@
 
 使用：复制到目标项目，填写方括号占位；不适用项写N/A及理由。此模板不预设任何书籍专名。
 
+被引用artifact的身份填写规则（说明，不是本文件自身份字段）：持久路径/资源ID；版本/revision；精确字节可用时MUST记SHA-256，否则记provider身份、稳定revision及准确版本重开定位；导出文件另记格式、来源revision和SHA-256。
+
 ## Identity and authority
 
-- Project / source version / source SHA-256：[填写]
+- Project / source artifact identity：[填写]
 - Target language / locale：[填写]
 - Reader profile / intended use：[填写]
 - Version / date / responsible role：[填写]
-- Frozen review Bible path / SHA-256（G1时填写）：[填写]
+- Frozen review Bible artifact identity（G1时填写）：[填写]
 - FINAL_AUTHORITY scope and authorization reference：[填写]
 
 ## Translation policy

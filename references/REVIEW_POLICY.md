@@ -4,9 +4,9 @@
 
 INDEPENDENT_REVIEWER MUST仅接收权威源件、冻结译文baseline、冻结Bible与中性范围说明。MUST NOT在G2前接收内部QA结论、内部Findings、SOURCE疑点表、PRE_FIXED结果或暗示特定答案的handoff。
 
-输入文件若夹带内部结论，MUST创建独立审查副本：只剥离结论性元数据，不改源译正文；记录副本与冻结原件的路径、摘要和正文等价关系。MUST NOT为了隔离而覆盖原baseline。不能建立隔离则STOP，不能把已受影响的review称为独立；必要时用新上下文重做受影响审查。
+输入artifact若夹带内部结论，MUST创建独立审查副本：只剥离结论性元数据，不改源译正文；记录副本与冻结原件的可复现身份及正文等价关系。MUST NOT为了隔离而覆盖原baseline。不能建立隔离则STOP，不能把已受影响的review称为独立；必要时用新上下文重做受影响审查。
 
-review输出必须说明输入版本、覆盖单元/范围、实际检查方法和未检查项。Coverage总数来自单元清单，检查过的范围不得等同于计划范围。零Finding可以成立，但不是跳过检查的理由。G2前冻结Coverage、Findings和Summary；G2后才开放内部QA做Cross-check，Cross-check完成后冻结。
+review输出必须说明输入的准确已审版本身份、覆盖单元/范围、实际检查方法和未检查项。Coverage总数来自单元清单，检查过的范围不得等同于计划范围。零Finding可以成立，但不是跳过检查的理由。G2前冻结Coverage、Findings和Summary；G2后才开放内部QA做Cross-check，Cross-check完成后冻结。
 
 ## 2. Finding model
 
@@ -60,23 +60,31 @@ G2后按根因、源位置和实际范围关联独立Finding与内部记录。�
 
 Evidence status使用这六项的PASS/FAIL/未核验及具体原因，不扩充裁决枚举。无语义变化的换行/引号归一须注明；改词、补名词或改整句不得伪装成排版归一。
 
-reviewer source-quote mismatch使原论证不可直接用于修订。MUST保留原记录并追加ERRATA，记录Finding ID、错误引文、真实引文、源位置/摘要、影响与纠正依据。若原指控不成立，INVALIDATED；若真实源译对仍有缺陷，另建清楚关联的核验证据再裁决，不让错误引文继续支持决定。
+reviewer source-quote mismatch使原论证不可直接用于修订。MUST保留原记录并追加ERRATA，记录Finding ID、错误引文、真实引文、源位置/制品身份、影响与纠正依据。若原指控不成立，INVALIDATED；若真实源译对仍有缺陷，另建清楚关联的核验证据再裁决，不让错误引文继续支持决定。
 
 冻结仅表示版本固定，不表示内容全真。更正不得自动恢复已失效的Finding。Evidence audit和ERRATA可为报告中的独立章节；已冻结报告的纠正必须另存追加材料。
 
-## 6. Artifact materialization与Manifest drift
+## 6. Reproducible Artifact Identity、materialization与Manifest drift
 
-Gate前MUST实际读取每个必需artifact，登记明确绝对路径或持久资源ID、大小、SHA-256、当前版本，以及取得/冻结时间。hash基于实际使用字节；字符/换行归一后的比较另列，不冒充文件摘要。远程对象必须确认最终上传完成并重新读取该版本；不能用上传前临时文件代替正式落盘证据。
+Every gated artifact MUST have a reproducible identity bound to the exact reviewed version。Gate前MUST实际读取每个必需artifact，并按其类型登记身份：
 
-Manifest与当前evidence摘要不符时：
+- Byte-addressable：持久路径/资源ID、适用版本，以及精确字节的SHA-256；同时记录字节数及适用时间。字符/换行归一后的比较另列，不冒充文件摘要。
+- Provider-native且无可直接寻址源字节：provider身份、持久资源ID、稳定revision/version ID及重新打开该准确已审版本的定位方式；不要求虚构原生字节hash。仅可变当前链接、修改时间或资源ID不足以绑定版本，无法重开则STOP。
+- 后续导出：另记export format、originating provider revision及导出精确字节的SHA-256。导出文件身份和provider-native身份分别保留，并记录对应关系。
+
+远程对象必须确认写入/上传完成并重新读取绑定版本；不能用上传前临时文件或当前可变版本代替已审版本。精确字节可用时SHA-256为MUST，尤其实际DOCX/PDF/EPUB制品；provider-native身份不是免检理由。
+
+报告/Manifest自身的最终identity MUST在完成并冻结后登记于外部既有Gate或交付记录，不回写自身，以免写入自己的SHA-256/revision再次改变其被绑定版本。模板中的身份规则说明适用于被引用artifact，不是自身份待填字段。
+
+Manifest与当前evidence摘要或provider revision身份不符时：
 
 1. STOP依赖该版本的下游动作；查明可获得的创建/上传/修改/导出历史，不猜不存在的旧版本。
 2. 记录原因、时间及证据来源；区分实测记录与FINAL_AUTHORITY的说明，不能把时间先后当作内容正确的证明。
-3. 保留原Manifest/原值；用`SUPERSEDED DIGESTS`和`STALE / SUPERSEDED METADATA`标注旧登记，不覆写后不留痕。
+3. 保留原Manifest/原值；字节摘要用`SUPERSEDED DIGESTS`、原生版本用superseded identity记录，并标注`STALE / SUPERSEDED METADATA`，不覆写后不留痕。
 4. 根据可靠历史和FINAL_AUTHORITY已有明确指定确定authoritative version；权威选择仍有歧义才请求决定。不得为了旧hash回滚当前有效证据。
-5. 从正式版本实际字节重算，登记`CURRENT AUTHORITATIVE DIGESTS`、修正原因、授权依据和受影响绑定，重验相关Gate。
+5. 对正式byte版本重算SHA-256并登记`CURRENT AUTHORITATIVE DIGESTS`；provider-native则登记当前权威revision身份。记录修正原因、授权依据和受影响绑定，重验相关Gate。
 
-仅metadata修正不修改reviewer内容或裁决。若实际内容变更，必须作新证据版本并重验受影响裁决，不能按metadata-only放行。QA状态字段变化也会改变文件摘要；保留执行时版本及当前版本关联，不静默更新执行记录。
+仅metadata修正不修改reviewer内容或裁决。若实际内容变更，必须作新证据版本并重验受影响裁决，不能按metadata-only放行。QA状态字段变化也会改变字节摘要或provider revision；保留执行时版本及当前版本关联，不静默更新执行记录。
 
 ## 7. Occurrence Map与替换控制
 
